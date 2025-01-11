@@ -13,6 +13,6 @@ Route::post('cart/taxes', 'CartTaxController@store')->name('cart.taxes.store');
 Route::post('cart/shippingarea', 'CartTaxController@updateShipping')->name('cart.shippingarea.update');
 
 Route::post('cart/shipping-method', 'CartShippingMethodController@store')->name('cart.shipping_method.store');
-Route::post('cart/shipping-method/get-area-cost', 'CartShippingMethodController@getAreaCost')->name('cart.shipping_method.getAreaCost');
+// Route::post('cart/shipping-method/get-area-cost', 'CartShippingMethodController@getAreaCost')->name('cart.shipping_method.getAreaCost');
 
 Route::get('cart/cross-sell-products', 'CartCrossSellProductsController@index')->name('cart.cross_sell_products.index');
