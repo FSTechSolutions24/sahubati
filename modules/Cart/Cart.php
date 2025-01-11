@@ -17,6 +17,7 @@ use Modules\Product\Services\ChosenProductVariations;
 use Darryldecode\Cart\Exceptions\InvalidItemException;
 use Darryldecode\Cart\Exceptions\InvalidConditionException;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection as SupportCollection;
 
 class Cart extends DarryldecodeCart implements JsonSerializable
 {
@@ -182,16 +183,20 @@ class Cart extends DarryldecodeCart implements JsonSerializable
     /**
      * @throws InvalidConditionException
      */
-    public function addShippingMethod($shippingMethod)
+    public function addShippingMethod($shippingMethod, $cost=null)
     {
         $this->removeShippingMethod();
 
+        if(!$cost){
+            $cost = $shippingMethod->cost->amount();
+        }
+     
         $this->condition(
             new CartCondition([
                 'name' => $shippingMethod->label,
                 'type' => 'shipping_method',
                 'target' => 'total',
-                'value' => $this->coupon()?->free_shipping ? 0 : $shippingMethod->cost->amount(),
+                'value' => $this->coupon()?->free_shipping ? 0 : $cost,
                 'order' => 1,
                 'attributes' => [
                     'shipping_method' => $shippingMethod,
@@ -386,6 +391,12 @@ class Cart extends DarryldecodeCart implements JsonSerializable
         }
 
         return ShippingMethod::available();
+    }
+
+
+    public function setShippingMethods(SupportCollection $shippingMethods)
+    {
+        $this->availableShippingMethods = $shippingMethods;
     }
 
 

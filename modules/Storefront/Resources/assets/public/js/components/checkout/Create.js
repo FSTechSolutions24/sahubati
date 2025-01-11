@@ -89,7 +89,7 @@ export default {
                 this.addTaxes();
             }
         },
-
+        
         "form.shipping.city": function (newCity) {
             if (newCity) {
                 this.addTaxes();
@@ -142,9 +142,10 @@ export default {
             }
         },
 
-        "form.billing.area": function (newArea) {
-            if (newArea) {
-                // store.state.cart.availableShippingMethods.shipping_rate.cost.inCurrentCurrency.formatted = this.calculateShippingCost(this.form.billing.area);
+        "form.billing.area": function (area) {
+            if (area) {
+                this.updateShippingMethod(store.state.cart.shippingMethodName);
+                this.calculate_shipping_area();
             }
         },
     },
@@ -184,7 +185,7 @@ export default {
             }
 
             this.form.billingAddressId = address.id;
-
+           
             this.mergeSavedBillingAddress();
         },
 
@@ -339,7 +340,6 @@ export default {
 
         changeShippingMethod(shippingMethodName) {
             this.$set(this.form, "shipping_method", shippingMethodName);
-            // store.state.cart.availableShippingMethods.shipping_rate.cost.inCurrentCurrency.formatted = this.calculateShippingCost(this.form.billing.area);
         },
 
         async updateShippingMethod(shippingMethodName) {
@@ -356,21 +356,16 @@ export default {
                     route("cart.shipping_method.store"),
                     {
                         shipping_method: shippingMethodName,
+                        area: this.form.billing.area,
                     }
                 );
 
-                response.data=await this.calculateShippingCost(this.form.billing.area,response.data); 
                 store.updateCart(response.data);
-
-                // This will now execute after the `await` call completes successfully
-                // store.state.cart.availableShippingMethods.shipping_rate.cost.inCurrentCurrency.formatted = this.calculateShippingCost(this.form.billing.area);
-
             } catch (error) {
                 this.$notify(error.response.data.message);
             } finally {
                 this.loadingOrderSummary = false;
             }
-
         },
 
         async addTaxes() {
@@ -380,9 +375,9 @@ export default {
                 const response = await axios.post(
                     route("cart.taxes.store"),
                     this.form
-                );                   
-                response.data=await this.calculateShippingCost(this.form.billing.area,response.data);                
-                store.updateCart(response.data);                
+                );
+                console.log(response.data);
+                store.updateCart(response.data);
             } catch (error) {
                 this.$notify(error.response.data.message);
             } finally {
@@ -390,37 +385,18 @@ export default {
             }
         },
 
-        async calculateShippingCost(NewArea, CartData) {
+        async calculate_shipping_area() {
+            this.loadingOrderSummary = true;
+
             try {
                 const response = await axios.post(
-                    route("cart.shipping_method.getAreaCost", {
-                        area: NewArea,
-                    })
+                    route("cart.shippingarea.update"),
+                    this.form
                 );
-        
-                console.log(CartData);
-                // Update CartData with response data
-                CartData.availableShippingMethods.shipping_rate.cost.amount = response.data;
-                CartData.availableShippingMethods.shipping_rate.cost.formatted = CartData.availableShippingMethods.shipping_rate.cost.currency + ' ' + response.data.toFixed(3);
-                CartData.availableShippingMethods.shipping_rate.cost.inCurrentCurrency.amount = response.data;
-                CartData.availableShippingMethods.shipping_rate.cost.inCurrentCurrency.formatted = CartData.availableShippingMethods.shipping_rate.cost.inCurrentCurrency.currency + ' ' + response.data.toFixed(3);
-        
-                if (CartData.shippingMethodName && CartData.shippingMethodName === "shipping_rate") {
-                    CartData.shippingCost.amount = response.data;
-                    CartData.shippingCost.formatted = CartData.shippingCost.currency + ' ' + response.data.toFixed(3);
-                    CartData.shippingCost.inCurrentCurrency.amount = response.data;
-                    CartData.shippingCost.inCurrentCurrency.formatted = CartData.shippingCost.inCurrentCurrency.currency + ' ' + response.data.toFixed(3);
-        
-                    CartData.total.amount = CartData.subTotal.amount + CartData.shippingCost.amount;
-                    CartData.total.formatted = CartData.total.currency + ' ' + (CartData.subTotal.amount + CartData.shippingCost.amount).toFixed(3);
-                    CartData.total.inCurrentCurrency.amount = CartData.subTotal.amount + CartData.shippingCost.amount;
-                    CartData.total.inCurrentCurrency.formatted = CartData.total.inCurrentCurrency.currency + ' ' + (CartData.subTotal.amount + CartData.shippingCost.amount).toFixed(3);
-                }
-        
-                return CartData; // Now you can return the updated CartData
+
+                store.updateCart(response.data);
             } catch (error) {
-                console.error("Error calculating shipping cost:", error);
-                throw error; // Optionally propagate the error
+            } finally {
             }
         },
 

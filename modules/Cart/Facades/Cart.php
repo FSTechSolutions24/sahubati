@@ -50,9 +50,11 @@ use Illuminate\Support\Collection as SupportCollection;
  * @method static array jsonSerialize()
  * @method static bool remove(string $id)
  * @method static bool allItemsAreVirtual()
+ * @method static void setShippingMethods(SupportCollection $shippingMethods)
  *
  * @see \Modules\Cart\Cart
  */
+
 class Cart extends Facade
 {
     /**
