@@ -29,13 +29,13 @@ class SettingTabs extends Tabs
             ->add($this->logo())
             ->add($this->maintenance())
             ->add($this->store())
-            ->add($this->PWA())
-            ->add($this->currency())
-            ->add($this->sms())
-            ->add($this->mail())
-            ->add($this->newsletter())
-            ->add($this->googleRecaptcha())
-            ->add($this->customCssJs());
+            // ->add($this->PWA())
+            ->add($this->currency());
+            // ->add($this->sms())
+            // ->add($this->mail())
+            // ->add($this->newsletter())
+            // ->add($this->googleRecaptcha())
+            // ->add($this->customCssJs());
 
         $this->group('social_logins', trans('setting::settings.tabs.group.social_logins'))
             ->add($this->facebook())
