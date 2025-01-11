@@ -50,7 +50,7 @@ class SettingTabs extends Tabs
         $this->group('payment_methods', trans('setting::settings.tabs.group.payment_methods'))
             ->add($this->paymob())
             ->add($this->paypal())
-            ->add($this->stripe())
+            // ->add($this->stripe())
             ->add($this->paytm())
             ->add($this->razorpay())
             ->add($this->instamojo())
