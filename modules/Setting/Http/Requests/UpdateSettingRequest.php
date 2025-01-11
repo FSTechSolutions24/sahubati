@@ -108,11 +108,11 @@ class UpdateSettingRequest extends Request
             'paypal_client_id' => 'required_if:paypal_enabled,1',
             'paypal_secret' => 'required_if:paypal_enabled,1',
 
-            // 'stripe_enabled' => 'required|boolean',
-            // 'translatable.stripe_label' => 'required_if:stripe_enabled,1',
-            // 'translatable.stripe_description' => 'required_if:stripe_enabled,1',
-            // 'stripe_publishable_key' => 'required_if:stripe_enabled,1',
-            // 'stripe_secret_key' => 'required_if:stripe_enabled,1',
+            'stripe_enabled' => 'required|boolean',
+            'translatable.stripe_label' => 'required_if:stripe_enabled,1',
+            'translatable.stripe_description' => 'required_if:stripe_enabled,1',
+            'stripe_publishable_key' => 'required_if:stripe_enabled,1',
+            'stripe_secret_key' => 'required_if:stripe_enabled,1',
 
             'paytm_enabled' => 'required|boolean',
             'translatable.paytm_label' => 'required_if:paytm_enabled,1',
