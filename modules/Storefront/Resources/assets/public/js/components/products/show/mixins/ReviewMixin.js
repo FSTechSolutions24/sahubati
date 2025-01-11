@@ -55,7 +55,7 @@ export default {
                     }),
                     {
                         ...this.reviewForm,
-                        "g-recaptcha-response": grecaptcha.getResponse(),
+                        // "g-recaptcha-response": grecaptcha.getResponse(),
                     }
                 )
                 .then((response) => {
@@ -81,7 +81,7 @@ export default {
                 .finally(() => {
                     this.addingNewReview = false;
 
-                    grecaptcha.reset();
+                    // grecaptcha.reset();
                 });
         },
 
