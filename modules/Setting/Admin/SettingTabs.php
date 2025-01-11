@@ -48,22 +48,22 @@ class SettingTabs extends Tabs
             ->add($this->shippingRate());
 
         $this->group('payment_methods', trans('setting::settings.tabs.group.payment_methods'))
-            ->add($this->paymob())
-            ->add($this->paypal())
-            ->add($this->stripe())
-            ->add($this->paytm())
-            ->add($this->razorpay())
-            ->add($this->instamojo())
-            ->add($this->authorizenet())
-            ->add($this->paystack())
-            ->add($this->mercadopago())
-            ->add($this->flutterwave())
-            ->add($this->payfast())
-            ->add($this->iyzico())
+            // ->add($this->paymob())
+            // ->add($this->paypal())
+            // ->add($this->stripe())
+            // ->add($this->paytm())
+            // ->add($this->razorpay())
+            // ->add($this->instamojo())
+            // ->add($this->authorizenet())
+            // ->add($this->paystack())
+            // ->add($this->mercadopago())
+            // ->add($this->flutterwave())
+            // ->add($this->payfast())
+            // ->add($this->iyzico())
             ->add($this->cod())
-            ->add($this->paylink())
-            ->add($this->bankTransfer())
-            ->add($this->checkPayment());
+            ->add($this->paylink());
+            // ->add($this->bankTransfer())
+            // ->add($this->checkPayment());
     }
 
 
