@@ -46,10 +46,13 @@ class CartTaxController
     public function updateShipping2($request)
     {
         
-        $cost = ShippingArea::where('slug',$request['billing']['area'])->firstOrFail()['cost'];        
-        if(!$cost){
+        $shippingArea = ShippingArea::where('slug',$request['billing']['area'])->first();  ///         
+        if(!$shippingArea){
             $cost = 0;
+        } else {
+            $cost = $shippingArea->cost;
         }
+
         $cart = Cart::instance();
         $shippingMethods = $cart->availableShippingMethods();
 
