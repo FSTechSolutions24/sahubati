@@ -35,7 +35,7 @@
                             </tr>
 
                             <tr>
-                                <td>{{ trans('order::orders.order_status') }}</td>
+                                <td>{{ trans('order::orders.order_status') }}</td>                                
                                 <td>
                                     <div class="row">
                                         <div class="col-lg-9 col-md-10 col-sm-10">
@@ -49,6 +49,25 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ trans('order::orders.order_payment_status') }}</td>
+                                <td>
+                                    <div class="switch">
+                                        <input data-id="{{ $order->id }}"
+                                            type="checkbox"
+                                            id="is_order_paid"
+                                            {{ $order->is_order_paid == 1 ? 'checked' : '' }}
+                                        >
+                                        
+                    
+                                        <label for="is_order_paid">
+                                            {{ trans('order::orders.mark_as_paid') }}
+                                        </label>
+                    
                                     </div>
                                 </td>
                             </tr>

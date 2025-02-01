@@ -29,6 +29,19 @@ class OrderStatusController
         return $message;
     }
 
+    public function is_order_paid(Order $order)
+    {
+        $this->adjustStock($order);
+
+        $order->update(['is_order_paid' => request('is_order_paid')]);
+
+        $message = trans('order::messages.is_order_paid_updated');
+
+        event(new OrderStatusChanged($order));
+
+        return $message;
+    }
+
 
     private function adjustStock(Order $order)
     {

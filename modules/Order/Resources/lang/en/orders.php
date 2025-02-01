@@ -14,6 +14,8 @@ return [
     'order_information' => 'Order Information',
     'order_id' => 'Order ID',
     'order_date' => 'Order Date',
+    'order_payment_status' => 'Order Payment Status',
+    'mark_as_paid' => 'Mark as paid',
     'order_status' => 'Order Status',
     'payment_method' => 'Payment Method',
     'currency' => 'Currency',

@@ -26,6 +26,12 @@ Route::put('orders/{order}/status', [
     'middleware' => 'can:admin.orders.edit',
 ]);
 
+Route::put('orders/{order}/is_order_paid', [
+    'as' => 'admin.orders.is_order_paid.update',
+    'uses' => 'OrderStatusController@is_order_paid',
+    'middleware' => 'can:admin.orders.edit',
+]);
+
 Route::post('orders/{order}/email', [
     'as' => 'admin.orders.email.store',
     'uses' => 'OrderEmailController@store',

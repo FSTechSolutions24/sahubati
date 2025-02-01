@@ -14,6 +14,8 @@ return [
     'order_information' => 'معلومات الطلب',
     'order_id' => 'رقم الطلب',
     'order_date' => 'تاريخ الطلب',
+    'mark_as_paid' => 'تحديد كمدفوع',
+    'order_payment_status' => 'حالة الدفع',
     'order_status' => 'حالة الطلب',
     'payment_method' => 'طريقة الدفع',
     'currency' => 'العملة',
