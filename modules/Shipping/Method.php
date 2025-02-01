@@ -22,10 +22,15 @@ class Method
 
     public function available()
     {
-        if ($this->name !== 'free_shipping') {
+        
+        if ($this->name !== 'free_shipping' && $this->name !== 'shipping_rate') {
             return true;
         }
 
+        if($this->name == 'shipping_rate'){
+            return $this->ShippingAreaMethodIsAvailable();
+        }
+        
         return $this->freeShippingMethodIsAvailable();
     }
 
@@ -35,5 +40,13 @@ class Method
         $minimumAmount = Money::inDefaultCurrency(setting('free_shipping_min_amount'));
 
         return Cart::subTotal()->greaterThanOrEqual($minimumAmount);
+    }
+
+
+    private function ShippingAreaMethodIsAvailable()
+    {
+        $minimumAmount = Money::inDefaultCurrency(setting('free_shipping_min_amount'));
+
+        return Cart::subTotal()->lessThan($minimumAmount);
     }
 }
