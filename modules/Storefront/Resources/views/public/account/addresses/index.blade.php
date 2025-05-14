@@ -163,7 +163,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="zip">
-                                            {{ trans('storefront::account.addresses.zip') }}<span>*</span>
+                                            {{ trans('storefront::account.addresses.zip') }}
                                         </label>
 
                                         <input v-model="form.zip" name="zip" type="text" id="zip"

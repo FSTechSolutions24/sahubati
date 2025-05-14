@@ -128,7 +128,7 @@ class LayoutComposer
 
     private function getCategories()
     {
-        return Category::searchable();
+        return Category::searchable()->orderBy('position');
     }
 
 
