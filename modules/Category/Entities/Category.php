@@ -99,6 +99,7 @@ class Category extends Model implements Sitemapable
         return Cache::tags('categories')
             ->rememberForever(md5('categories.searchable:' . locale()), function () {
                 return static::where('is_searchable', true)
+                    ->orderBy('position')
                     ->get()
                     ->map(function ($category) {
                         return [
